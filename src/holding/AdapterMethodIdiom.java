@@ -14,11 +14,35 @@ class ReversibleArrayList<T> extends ArrayList<T> {
         return new Iterable<T>() {
             @Override
             public Iterator<T> iterator() {
-                return null;
+                return new Iterator<T>() {
+                    int current = size() - 1;
+                    @Override
+                    public boolean hasNext() {
+                        return current > -1;
+                    }
+
+                    @Override
+                    public T next() {
+                        return get(current--);
+                    }
+                    @Override
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+                };
             }
-        }
+        };
     }
 }
 public class AdapterMethodIdiom {
-
+    public static void main(String[] args) {
+        ReversibleArrayList<String> ral =
+                new ReversibleArrayList<String>(Arrays.asList("To be or not to be".split(" ")));
+        //Grabs the ordinary iterator via iterator()
+        for (String s : ral)
+            System.out.print(s + " ");
+        System.out.println();
+        for (String s : ral.reversed())
+            System.out.print(s + " ");
+    }
 }
