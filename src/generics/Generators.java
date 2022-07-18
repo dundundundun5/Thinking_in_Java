@@ -3,6 +3,14 @@ import generics.coffee.*;
 import java.util.*;
 import net.mindview.util.*;
 public class Generators {
+    /**
+     *
+     * @param coll 合集容器
+     * @param gen 对象生成器
+     * @param n 生成次数
+     * @param <T> 对象名称
+     * @return 合集的引用
+     */
     public static <T> Collection<T> fill(Collection<T> coll, Generator<T> gen, int n) {
         for (int i = 0; i < n; i++) {
             coll.add(gen.next());
